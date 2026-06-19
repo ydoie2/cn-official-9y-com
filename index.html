@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>九游 · 再次相遇的地方</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: #faf7f2;
+      color: #2e2a26;
+      line-height: 1.7;
+      padding: 0 20px;
+    }
+    .page {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 32px 0 60px;
+    }
+
+    /* 顶部导航 */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0 14px;
+      border-bottom: 1px solid #e3ddd3;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .nav-logo {
+      font-weight: 500;
+      font-size: 1.2rem;
+      letter-spacing: 0.03em;
+      color: #4d423b;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 0.95rem;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #5e534a;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: #b35e2e;
+    }
+
+    /* hero */
+    .hero {
+      margin-bottom: 50px;
+    }
+    .hero h1 {
+      font-size: 2.1rem;
+      font-weight: 480;
+      letter-spacing: 0.02em;
+      color: #2e241e;
+      line-height: 1.3;
+    }
+    .hero p {
+      margin-top: 18px;
+      font-size: 1rem;
+      color: #524941;
+      max-width: 680px;
+    }
+    .hero .meta-note {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 0.85rem;
+      color: #92877d;
+      border-left: 3px solid #d3c6b8;
+      padding-left: 14px;
+    }
+
+    /* 核心介绍 — 引用风格 */
+    .core-box {
+      background: #f3eee7;
+      border-radius: 20px;
+      padding: 28px 32px;
+      margin-bottom: 44px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .core-box blockquote {
+      font-size: 1rem;
+      color: #3f3831;
+      border-left: 4px solid #b69f8a;
+      padding-left: 22px;
+      margin: 0 0 16px 0;
+      font-style: normal;
+    }
+    .core-box p {
+      margin-bottom: 10px;
+    }
+
+    /* 场景模块（三个卡片） */
+    .scenes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .scene-card {
+      background: #ffffffd9;
+      backdrop-filter: blur(2px);
+      border: 1px solid #e7dfd5;
+      border-radius: 24px;
+      padding: 26px 22px 30px;
+      transition: box-shadow 0.25s, transform 0.15s;
+    }
+    .scene-card:hover {
+      box-shadow: 0 8px 20px rgba(80, 60, 40, 0.06);
+      transform: translateY(-2px);
+    }
+    .scene-card h3 {
+      font-weight: 480;
+      font-size: 1.2rem;
+      letter-spacing: 0.02em;
+      color: #382f28;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed #ded3c8;
+    }
+    .scene-card p {
+      font-size: 0.94rem;
+      color: #4f453d;
+    }
+    .scene-card .tag {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 0.75rem;
+      color: #7f6f60;
+      background: #f0e8df;
+      padding: 2px 12px;
+      border-radius: 30px;
+      letter-spacing: 0.03em;
+    }
+
+    /* 提示框 / 说明区 */
+    .notice-area {
+      background: #f0ebe3;
+      border-radius: 24px;
+      padding: 26px 30px;
+      margin-bottom: 44px;
+      border-left: 6px solid #b69f8a;
+    }
+    .notice-area h4 {
+      font-weight: 450;
+      font-size: 1.05rem;
+      color: #3b3129;
+      margin-bottom: 12px;
+    }
+    .notice-area p {
+      font-size: 0.95rem;
+      color: #4f443b;
+      margin-bottom: 8px;
+    }
+
+    /* FAQ 摘要 */
+    .faq-mini {
+      margin-bottom: 48px;
+    }
+    .faq-mini details {
+      border-bottom: 1px solid #e1d8ce;
+      padding: 14px 0;
+      cursor: pointer;
+    }
+    .faq-mini summary {
+      font-weight: 450;
+      color: #312a24;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .faq-mini summary::before {
+      content: "▸";
+      color: #a48d79;
+      font-size: 1.1rem;
+      transition: transform 0.2s;
+    }
+    .faq-mini details[open] summary::before {
+      transform: rotate(90deg);
+    }
+    .faq-mini .faq-answer {
+      padding: 14px 0 6px 28px;
+      color: #51463e;
+      font-size: 0.93rem;
+    }
+
+    /* 内嵌链接 — 唯一 a 标签指向官网 */
+    .inline-link {
+      color: #b35e2e;
+      text-decoration: none;
+      border-bottom: 1px solid #d8c3b0;
+      transition: border-color 0.2s;
+    }
+    .inline-link:hover {
+      border-bottom-color: #b35e2e;
+    }
+
+    /* 页脚 */
+    .footer {
+      border-top: 1px solid #e3ddd3;
+      padding-top: 28px;
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #7c6f62;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 600px) {
+      .nav { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .hero h1 { font-size: 1.7rem; }
+      .scenes-grid { gap: 16px; }
+      .core-box { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- 顶部导航 -->
+  <nav class="nav">
+    <span class="nav-logo">◈ 九游手记</span>
+    <div class="nav-links">
+      <a href="#">收藏夹</a>
+      <a href="#">随记</a>
+      <a href="#">常见</a>
+    </div>
+  </nav>
+
+  <!-- hero -->
+  <section class="hero">
+    <h1>偶尔路过，时常停留</h1>
+    <p>对于喜欢的内容，很多人会选择放进书签，或者在心里默念“下次再来”。<br>
+    一个能被反复记起的地方，总有些说不清的吸引力——也许是氛围，也许是恰好契合了某些时刻的心情。</p>
+    <span class="meta-note">累计被收藏 · 持续更新中</span>
+  </section>
+
+  <!-- 核心介绍 blockquote 风格 -->
+  <section class="core-box">
+    <blockquote>
+      “有些页面，你只是打开过一次，却会在之后的日子里不断想起。”
+    </blockquote>
+    <p>
+      不管是偶然发现，还是老朋友推荐，<a href="https://cn-official-9y.com" class="inline-link">九游</a>给人的印象往往不是一次性的。
+      它像一处安静的角落，内容不喧哗，却值得慢慢翻阅。很多人在忙碌间隙会重新点开，看看有没有新的东西，或者纯粹为了找回之前那种放松的感觉。
+    </p>
+    <p>
+      也正因为这样，我们总建议：如果觉得不错，不妨把这一页保留在浏览器书签里，或者记在备忘录中。下次想找个地方待一会儿的时候，不用费力寻找。
+    </p>
+  </section>
+
+  <!-- 三个场景模块 -->
+  <section class="scenes-grid">
+    <div class="scene-card">
+      <h3>再次打开</h3>
+      <p>书签里躺了很久的链接，某天傍晚点开，发现界面还是熟悉的样子，内容却有了新的温度。就像翻开一本读了一半的书，自然续上。</p>
+      <span class="tag">常回</span>
+    </div>
+    <div class="scene-card">
+      <h3>随手收藏</h3>
+      <p>不一定要立刻细看，先收藏起来。等到通勤、午后、睡前这些零碎时间，再慢慢浏览。收藏的动作本身，也是一种“我还会来”的默契。</p>
+      <span class="tag">标记</span>
+    </div>
+    <div class="scene-card">
+      <h3>持续关注</h3>
+      <p>有些站点适合订阅，九游更像一个不打扰的朋友。你不需要每天查看，但每隔一阵子过来，总能发现一些贴合当下的内容更新。</p>
+      <span class="tag">自然</span>
+    </div>
+  </section>
+
+  <!-- 提示框 / 说明 -->
+  <section class="notice-area">
+    <h4>📌 一些提醒</h4>
+    <p>• 如果页面加载稍慢，可能是网络环境差异，稍等片刻即可。</p>
+    <p>• 推荐使用浏览器自带的书签功能进行收藏，方便下次直接抵达。</p>
+    <p>• 内容会不定期调整和补充，保持适度的新鲜感，但不会频繁到打扰。</p>
+  </section>
+
+  <!-- FAQ 摘要 -->
+  <section class="faq-mini">
+    <details>
+      <summary>为什么我上次看到的页面和现在不一样？</summary>
+      <div class="faq-answer">很正常。九游的内容会随着时间和季节做一些微调，这不是错误，而是希望每次回来都有新的阅读感受。核心结构和风格一般不会大变。</div>
+    </details>
+    <details>
+      <summary>书签失效了怎么办？</summary>
+      <div class="faq-answer">书签偶尔会因为地址变更或缓存问题失效，这时可以重新搜索“九游”或通过常用入口进入。建议定期检查一下书签是否还能正常打开。</div>
+    </details>
+    <details>
+      <summary>适合在手机上浏览吗？</summary>
+      <div class="faq-answer">页面针对手机和电脑都做了基本适配，字体和间距在移动端阅读也比较舒适。如果遇到排版问题，可以尝试横竖屏切换。</div>
+    </details>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <span>◈ 九游 · 一份安静的陪伴</span>
+    <span>内容不断生长</span>
+  </footer>
+
+</div>
+</body>
+</html>
